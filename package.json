@@ -1,0 +1,12 @@
+{
+  "name": "task-manager",
+  "version": "1.0.0",
+  "description": "三層構成のタスク管理アプリ(課題用)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.0"
+  }
+}

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>タスク管理アプリ</title>
+  <!-- タブに表示するアイコン(📝の絵文字をそのまま使う)。これが無いとブラウザが favicon.ico を探しに来て404になる -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>📝</text></svg>">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>📝 タスク管理</h1>
+  </header>
+
+  <main>
+    <!-- ========== タスク追加フォーム ========== -->
+    <section class="add-form">
+      <h2>タスクを追加</h2>
+      <form id="task-form">
+        <div class="form-row">
+          <label>
+            タスク名 <span class="required">必須</span>
+            <input type="text" id="input-title" placeholder="例: レポートを書く" required>
+          </label>
+        </div>
+
+        <div class="form-row form-row-inline">
+          <label>
+            締め切り(日にち)
+            <input type="date" id="input-deadline">
+          </label>
+          <label>
+            締め切り(時刻・省略可)
+            <input type="time" id="input-deadline-time">
+          </label>
+          <label>
+            優先順位
+            <select id="input-priority">
+              <option value="1">高</option>
+              <option value="2" selected>中</option>
+              <option value="3">低</option>
+            </select>
+          </label>
+          <label>
+            予想所要時間
+            <select id="input-minutes">
+              <option value="">未設定</option>
+              <option value="15">15分</option>
+              <option value="30">30分</option>
+              <option value="60">1時間</option>
+              <option value="120">2時間</option>
+              <option value="240">4時間以上</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="form-row form-row-inline">
+          <label class="checkbox-label">
+            <input type="checkbox" id="input-routine">
+            ルーティン(繰り返し)にする
+          </label>
+          <label id="routine-interval-label" class="hidden">
+            間隔
+            <select id="input-interval">
+              <option value="1">毎日</option>
+              <option value="7">毎週</option>
+              <option value="30">毎月</option>
+            </select>
+          </label>
+        </div>
+
+        <button type="submit" class="btn-add">追加する</button>
+      </form>
+    </section>
+
+    <!-- ========== 表示切り替えボタン ========== -->
+    <section class="view-toggle">
+      <button id="btn-list-view" class="active">📋 リスト</button>
+      <button id="btn-calendar-view">📅 カレンダー</button>
+    </section>
+
+    <!-- ========== 色分けの説明 ========== -->
+    <section class="legend">
+      <span><span class="color-box color-short"></span>30分以内</span>
+      <span><span class="color-box color-medium"></span>1〜2時間</span>
+      <span><span class="color-box color-long"></span>2時間超</span>
+      <span><span class="color-box color-none"></span>未設定</span>
+    </section>
+
+    <!-- ========== タスク一覧(リスト表示) ========== -->
+    <section id="list-view">
+      <h2>タスク一覧</h2>
+      <ul id="task-list"></ul>
+      <p id="empty-message" class="hidden">タスクはありません。上のフォームから追加してみましょう!</p>
+    </section>
+
+    <!-- ========== カレンダー表示 ========== -->
+    <section id="calendar-view" class="hidden">
+      <div class="calendar-header">
+        <button id="btn-prev-month">◀ 前の月</button>
+        <h2 id="calendar-title"></h2>
+        <button id="btn-next-month">次の月 ▶</button>
+      </div>
+      <div id="calendar-grid"></div>
+      <p class="calendar-note">※ 締め切りが設定されているタスクだけ表示されます。日にちをクリックするとその日のタスク一覧が見られます</p>
+
+      <!-- クリックした日のタスク一覧 -->
+      <div id="day-panel" class="hidden">
+        <h2 id="day-panel-title"></h2>
+        <ul id="day-task-list"></ul>
+        <p id="day-panel-empty" class="hidden">この日が締め切りのタスクはありません</p>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

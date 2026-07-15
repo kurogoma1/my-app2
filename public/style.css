@@ -1,0 +1,382 @@
+/* ========================================
+   タスク管理アプリの見た目(CSS)
+   ======================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+  background: #f0f4f8;
+  color: #333;
+  line-height: 1.6;
+}
+
+header {
+  background: #2b6cb0;
+  color: white;
+  padding: 16px 24px;
+}
+
+main {
+  max-width: 720px;
+  margin: 24px auto;
+  padding: 0 16px;
+}
+
+h2 {
+  font-size: 1.1rem;
+  margin-bottom: 12px;
+}
+
+/* ---------- 追加フォーム ---------- */
+.add-form {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.form-row {
+  margin-bottom: 12px;
+}
+
+.form-row-inline {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  align-items: flex-end;
+}
+
+label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: bold;
+}
+
+.required {
+  color: #e53e3e;
+  font-size: 0.75rem;
+}
+
+input[type="text"],
+input[type="date"],
+input[type="time"],
+select {
+  display: block;
+  width: 100%;
+  padding: 8px;
+  margin-top: 4px;
+  border: 1px solid #cbd5e0;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.form-row-inline label {
+  flex: 1;
+  min-width: 140px;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.checkbox-label input {
+  width: auto;
+}
+
+.btn-add {
+  background: #2b6cb0;
+  color: white;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.btn-add:hover {
+  background: #2c5282;
+}
+
+/* ---------- 表示切り替えボタン ---------- */
+.view-toggle {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.view-toggle button {
+  padding: 8px 20px;
+  border: 1px solid #cbd5e0;
+  background: white;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.view-toggle button.active {
+  background: #2b6cb0;
+  color: white;
+  border-color: #2b6cb0;
+}
+
+/* ---------- 色分けの説明 ---------- */
+.legend {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  font-size: 0.8rem;
+  margin-bottom: 20px;
+  color: #555;
+}
+
+.legend > span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.color-box {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+}
+
+/* 所要時間による色分け */
+.color-short  { background: #48bb78; } /* 30分以内: 緑 */
+.color-medium { background: #ecc94b; } /* 1〜2時間: 黄 */
+.color-long   { background: #e53e3e; } /* 2時間超: 赤 */
+.color-none   { background: #a0aec0; } /* 未設定: 灰色 */
+
+/* ---------- タスク一覧 ---------- */
+#task-list {
+  list-style: none;
+}
+
+.task-item {
+  background: white;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  border-left: 6px solid #a0aec0; /* この色がJSで所要時間に応じて変わる */
+}
+
+/* サブタスクは右にずらして表示 */
+.task-item.subtask {
+  margin-left: 32px;
+}
+
+.task-main {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.task-title {
+  flex: 1;
+  font-weight: bold;
+}
+
+/* 完了したタスクは打ち消し線 */
+.task-item.done .task-title {
+  text-decoration: line-through;
+  color: #a0aec0;
+}
+
+/* 優先順位バッジ */
+.badge {
+  font-size: 0.75rem;
+  padding: 2px 8px;
+  border-radius: 999px;
+  color: white;
+  white-space: nowrap;
+}
+
+.badge-high   { background: #e53e3e; }
+.badge-medium { background: #dd6b20; }
+.badge-low    { background: #718096; }
+.badge-routine { background: #6b46c1; }
+
+/* カウントダウン表示 */
+.countdown {
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+.countdown.overdue { color: #e53e3e; font-weight: bold; } /* 期限切れ */
+.countdown.today   { color: #dd6b20; font-weight: bold; } /* 今日まで */
+.countdown.soon    { color: #d69e2e; }                    /* 3日以内 */
+
+/* タスク操作ボタン */
+.task-buttons {
+  display: flex;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.task-buttons button {
+  border: 1px solid #cbd5e0;
+  background: white;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.task-buttons button:hover {
+  background: #edf2f7;
+}
+
+.btn-delete {
+  color: #e53e3e;
+}
+
+/* サブタスク追加の入力欄 */
+.subtask-form {
+  display: flex;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.subtask-form input {
+  flex: 1;
+  margin-top: 0;
+}
+
+/* ---------- カレンダー表示 ---------- */
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.calendar-header h2 {
+  margin-bottom: 0;
+}
+
+.calendar-header button {
+  padding: 6px 14px;
+  border: 1px solid #cbd5e0;
+  background: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.calendar-header button:hover {
+  background: #edf2f7;
+}
+
+/* 7列(日〜土)のマス目 */
+#calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+  background: #cbd5e0;      /* マスの隙間が線に見える */
+  border: 1px solid #cbd5e0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* 曜日の見出し(日〜土) */
+.cal-weekday {
+  background: #edf2f7;
+  text-align: center;
+  font-size: 0.8rem;
+  font-weight: bold;
+  padding: 6px 0;
+}
+
+/* 日付のマス */
+.cal-day {
+  background: white;
+  min-height: 72px;
+  padding: 4px;
+  font-size: 0.75rem;
+}
+
+.cal-day .day-number {
+  font-weight: bold;
+  margin-bottom: 2px;
+}
+
+/* 前後の月の空白マス */
+.cal-day.empty {
+  background: #f7fafc;
+}
+
+/* 日付マスはクリックできる */
+.cal-day:not(.empty) {
+  cursor: pointer;
+}
+
+.cal-day:not(.empty):hover {
+  background: #f0f7ff;
+}
+
+/* クリックで選択中の日 */
+.cal-day.selected {
+  background: #bee3f8;
+}
+
+/* 今日のマスは目立たせる */
+.cal-day.today {
+  background: #ebf8ff;
+  outline: 2px solid #2b6cb0;
+  outline-offset: -2px;
+}
+
+/* 日曜は赤、土曜は青 */
+.cal-sunday .day-number, .cal-weekday.cal-sunday { color: #e53e3e; }
+.cal-saturday .day-number, .cal-weekday.cal-saturday { color: #2b6cb0; }
+
+/* マスの中に表示するタスク(所要時間の色分けと同じ色) */
+.cal-task {
+  display: block;
+  color: white;
+  border-radius: 4px;
+  padding: 1px 4px;
+  margin-bottom: 2px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis; /* 長い名前は「…」で省略 */
+}
+
+.cal-task.done {
+  text-decoration: line-through;
+  opacity: 0.5;
+}
+
+.calendar-note {
+  font-size: 0.8rem;
+  color: #718096;
+  margin-top: 8px;
+}
+
+/* クリックした日のタスク一覧 */
+#day-panel {
+  margin-top: 20px;
+}
+
+#day-panel-empty {
+  color: #718096;
+  padding: 8px 0;
+}
+
+.hidden {
+  display: none !important;
+}
+
+#empty-message {
+  text-align: center;
+  color: #718096;
+  padding: 24px;
+}
